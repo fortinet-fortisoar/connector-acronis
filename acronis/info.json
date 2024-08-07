@@ -1,0 +1,314 @@
+{
+  "name": "acronis",
+  "label": "Acronis",
+  "version": "1.0.0",
+  "description": "Acronis Cyber Protect Connect is a remote access solution to remotely manage workloads — quickly and easily. This connector facilitates automated operations to fetch alerts, target, service etc.",
+  "publisher": "Fortinet",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "category": "Attack surface management",
+  "icon_small_name": "small.png",
+  "icon_large_name": "large.png",
+  "ingestion_supported": false,
+  "help_online": "",
+  "configuration": {
+    "fields": [
+      {
+        "title": "Server URL",
+        "description": "Service based URI to which you will connect and perform the automated operations.",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "server_url",
+        "value": "https://in07-cloud.acronis.com",
+        "tooltip": "Service based URI to which you will connect and perform the automated operations."
+      },
+      {
+        "title": "Client ID",
+        "description": "Client ID configured for your account for using the Acronis.",
+        "tooltip": "Client ID configured for your account for using the Acronis.",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "name": "client_id"
+      },
+      {
+        "title": "Client Secret",
+        "description": "Client Secret configured for your account for using the Acronis.",
+        "tooltip": "Client Secret configured for your account for using the Acronis.",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "password",
+        "name": "client_secret"
+      },
+      {
+        "title": "Verify SSL",
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not. <br />By default, this option is set as True.",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "name": "verify_ssl",
+        "value": true
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "create_alert",
+      "title": "Create an Alert",
+      "description": "Creates and activates an alert based on the tyep, category and other parameters you have specified.",
+      "category": "investigation",
+      "annotation": "create_alert",
+      "output_schema": {
+        "id": ""
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Title",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "title",
+          "tooltip": "Specify the title to create an alert in Acronis.",
+          "description": "Specify the title to create an alert in Acronis."
+        },
+        {
+          "title": "Type",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "type",
+          "tooltip": "Select the type to create an alert in Acronis.",
+          "description": "Select the type to create an alert in Acronis."
+        },
+        {
+          "title": "Category",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "options": [
+            "Backup",
+            "System",
+            "Licensing",
+            "Disaster recovery",
+            "Antimalware protection",
+            "URL filtering",
+            "Management",
+            "Monitoring",
+            "Device control",
+            "Email security",
+            "EDR",
+            "Public clouds connection",
+            "Performance logging",
+            "Device discovery"
+          ],
+          "name": "category",
+          "tooltip": "Select the category to create an alert in Acronis.",
+          "description": "Select the category to create an alert in Acronis."
+        },
+        {
+          "title": "Tenant",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "tenant",
+          "tooltip": "Specify the tenant details to create an alert in Acronis.",
+          "description": "Specify the tenant details to create an alert in Acronis."
+        },
+        {
+          "title": "Description",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "description",
+          "tooltip": "Specify the description to create an alert in Acronis.",
+          "description": "Specify the description to create an alert in Acronis."
+        },
+        {
+          "title": "Other Fields",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "json",
+          "name": "other_fields",
+          "tooltip": "Specify the other fields to create an alert in Acronis.",
+          "description": "Specify the other fields to create an alert in Acronis."
+        }
+      ]
+    },
+    {
+      "operation": "get_alerts",
+      "title": "Get Alerts",
+      "description": "Retrieves the alert/alerts based on the alerts ID parameter you have specified.",
+      "category": "investigation",
+      "annotation": "get_alerts",
+      "output_schema": {
+        "items": [
+          {
+            "id": "",
+            "type": "",
+            "details": {
+              "resourceId": "",
+              "resourceName": "",
+              "serviceName": ""
+            },
+            "createdAt": "",
+            "severity": "",
+            "affinity": "",
+            "receivedAt": "",
+            "updatedAt": "",
+            "tenant": {
+              "id": "",
+              "uuid": "",
+              "locator": ""
+            },
+            "category": ""
+          }
+        ],
+        "paging": {
+          "cursors": {}
+        }
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Alert ID",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "alerts_id",
+          "tooltip": "Specify the alert ID to retrieve from Acronis. e.g. E5FA7823-74F5-549A-9C1A-BAA020062DCA",
+          "description": "Specify the alert ID to retrieve from Acronis. e.g. E5FA7823-74F5-549A-9C1A-BAA020062DCA"
+        },
+        {
+          "title": "Limit",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "limit",
+          "tooltip": "The maximum number of records to return.",
+          "description": "Specify the maximum number of records that this operation should return."
+        }
+      ]
+    },
+    {
+      "operation": "get_alert_types",
+      "title": "Get Alert Types",
+      "description": "Retrieves all registered alert types based on the OS type, category, order parameter you have specified.",
+      "category": "investigation",
+      "annotation": "get_alert_types",
+      "output_schema": {
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "OS Type",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "options": [
+            "ios",
+            "linux",
+            "macos",
+            "windows"
+          ],
+          "name": "os_type",
+          "tooltip": "Select the OS type to retrieve the list of alerts types.",
+          "description": "Select the OS type to retrieve the list of alerts types."
+        },
+        {
+          "title": "Category",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "options": [
+            "Backup",
+            "System",
+            "Licensing",
+            "Disaster recovery",
+            "Antimalware protection",
+            "URL filtering",
+            "Management",
+            "Monitoring",
+            "Device control",
+            "Email security",
+            "EDR",
+            "Public clouds connection",
+            "Performance logging",
+            "Device discovery"
+          ],
+          "name": "category",
+          "tooltip": "Select the category to retrieve the list of alerts types.",
+          "description": "Select the category to retrieve the list of alerts types."
+        },
+        {
+          "title": "Order",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "select",
+          "options": [
+            "asc",
+            "desc"
+          ],
+          "name": "order",
+          "tooltip": "Select the order to retrieve the list of alerts types.",
+          "description": "Select the order to retrieve the list of alerts types."
+        }
+      ]
+    },
+    {
+      "operation": "delete_alert",
+      "title": "Delete an Alert",
+      "description": "Deletes an alert based on the ALert ID parameter you have specified.",
+      "category": "investigation",
+      "annotation": "delete_alert",
+      "output_schema": {
+      },
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Alert ID",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "alert_id",
+          "tooltip": "Specify the alert ID to delete. e.g. a21dcdb2-bf37-39dB-9Ce0-de11A4Bf3EeD",
+          "description": "Specify the alert ID to delete. e.g. a21dcdb2-bf37-39dB-9Ce0-de11A4Bf3EeD"
+        }
+      ]
+    },
+    {
+      "operation": "get_categories",
+      "title": "Get Categories",
+      "description": "Retrieves categories fro Acronis.",
+      "category": "investigation",
+      "annotation": "get_categories",
+      "output_schema": {
+        "items": [
+          {
+            "name": ""
+          }
+        ]
+      },
+      "enabled": true,
+      "parameters": [
+      ]
+    }
+  ]
+}

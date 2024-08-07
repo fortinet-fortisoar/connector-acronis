@@ -1,0 +1,374 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "7a154ad3-9414-4e24-a51a-dc2f77ef6815",
+      "@type": "WorkflowCollection",
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "3948229b-326e-4f3c-9480-92a86e75cc65",
+          "collection": "/api/3/workflow_collections/7a154ad3-9414-4e24-a51a-dc2f77ef6815",
+          "steps": [
+            {
+              "uuid": "56d847a6-d6cf-4899-92e8-76b5081900b4",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "f3c697cb-d949-4f74-aad4-f1df54e74fbc",
+              "@type": "WorkflowStep",
+              "name": "Create an Alert",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Acronis",
+                "config": "",
+                "params": {
+                  "title": "",
+                  "type": "",
+                  "category": "",
+                  "tenant": "",
+                  "description": "",
+                  "other_fields": ""
+                },
+                "version": "1.0.0",
+                "connector": "acronis",
+                "operation": "create_alert",
+                "operationTitle": "Create an Alert"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Creates and activates an alert based on the tyep, category and other parameters you have specified.",
+          "name": "Create an Alert",
+          "tag": "#Acronis",
+          "recordTags": [
+            "Acronis",
+            "acronis"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/56d847a6-d6cf-4899-92e8-76b5081900b4",
+          "routes": [
+            {
+              "uuid": "c68203c9-baf4-48e6-96af-5c8dc71b2561",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Create an Alert",
+              "sourceStep": "/api/3/workflow_steps/56d847a6-d6cf-4899-92e8-76b5081900b4",
+              "targetStep": "/api/3/workflow_steps/f3c697cb-d949-4f74-aad4-f1df54e74fbc"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "b7fe9a5f-ca9e-4db2-922a-c2be47a67ea4",
+          "collection": "/api/3/workflow_collections/7a154ad3-9414-4e24-a51a-dc2f77ef6815",
+          "steps": [
+            {
+              "uuid": "e8cf0465-3917-48d1-9b84-0cf8ae3be8fb",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "eac1facc-61f4-4f1b-8bc8-ff245b747804",
+              "@type": "WorkflowStep",
+              "name": "Get Alerts",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Acronis",
+                "config": "",
+                "params": {
+                  "alerts_id": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "acronis",
+                "operation": "get_alerts",
+                "operationTitle": "Get Alerts"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves the alert/alerts based on the alerts ID parameter you have specified.",
+          "name": "Get Alerts",
+          "tag": "#Acronis",
+          "recordTags": [
+            "Acronis",
+            "acronis"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/e8cf0465-3917-48d1-9b84-0cf8ae3be8fb",
+          "routes": [
+            {
+              "uuid": "86a88afa-2d62-42cf-8421-4791742eff3b",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Alerts",
+              "sourceStep": "/api/3/workflow_steps/e8cf0465-3917-48d1-9b84-0cf8ae3be8fb",
+              "targetStep": "/api/3/workflow_steps/eac1facc-61f4-4f1b-8bc8-ff245b747804"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "6566c506-c180-47a6-a253-fbe5489c3bfb",
+          "collection": "/api/3/workflow_collections/7a154ad3-9414-4e24-a51a-dc2f77ef6815",
+          "steps": [
+            {
+              "uuid": "f34b5388-31d4-42c1-93c4-f27055ca64df",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "4254fac5-d101-49f0-86a7-6932c43ea3e6",
+              "@type": "WorkflowStep",
+              "name": "Get Alert Types",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Acronis",
+                "config": "",
+                "params": {
+                  "os_type": "",
+                  "category": "",
+                  "order": ""
+                },
+                "version": "1.0.0",
+                "connector": "acronis",
+                "operation": "get_alert_types",
+                "operationTitle": "Get Alert Types"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves all registered alert types based on the OS type, category, order parameter you have specified.",
+          "name": "Get Alert Types",
+          "tag": "#Acronis",
+          "recordTags": [
+            "Acronis",
+            "acronis"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/f34b5388-31d4-42c1-93c4-f27055ca64df",
+          "routes": [
+            {
+              "uuid": "fa5b71ad-a951-49dd-a704-d9a0ae8e026f",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Alert Types",
+              "sourceStep": "/api/3/workflow_steps/f34b5388-31d4-42c1-93c4-f27055ca64df",
+              "targetStep": "/api/3/workflow_steps/4254fac5-d101-49f0-86a7-6932c43ea3e6"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "b4ad4c74-fbca-4ea7-9f76-ce28d0312651",
+          "collection": "/api/3/workflow_collections/7a154ad3-9414-4e24-a51a-dc2f77ef6815",
+          "steps": [
+            {
+              "uuid": "65215542-7851-47a3-8197-530341b0f1a9",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "71589752-61c3-42c9-a635-b9424da70c57",
+              "@type": "WorkflowStep",
+              "name": "Delete an Alert",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Acronis",
+                "config": "",
+                "params": {
+                  "alert_id": ""
+                },
+                "version": "1.0.0",
+                "connector": "acronis",
+                "operation": "delete_alert",
+                "operationTitle": "Delete an Alert"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Deletes an alert based on the ALert ID parameter you have specified.",
+          "name": "Delete an Alert",
+          "tag": "#Acronis",
+          "recordTags": [
+            "Acronis",
+            "acronis"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/65215542-7851-47a3-8197-530341b0f1a9",
+          "routes": [
+            {
+              "uuid": "9a955f7f-d967-45b4-bb3f-b5774ff62870",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Delete an Alert",
+              "sourceStep": "/api/3/workflow_steps/65215542-7851-47a3-8197-530341b0f1a9",
+              "targetStep": "/api/3/workflow_steps/71589752-61c3-42c9-a635-b9424da70c57"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "f205807c-9aaa-473b-9c0b-d14e53eb388d",
+          "collection": "/api/3/workflow_collections/7a154ad3-9414-4e24-a51a-dc2f77ef6815",
+          "steps": [
+            {
+              "uuid": "810a499b-b7a0-4095-aa74-3aa09664bb6b",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "3c09dda4-5082-4822-82f8-c71434df47f3",
+              "@type": "WorkflowStep",
+              "name": "Get Categories",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Acronis",
+                "config": "",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "acronis",
+                "operation": "get_categories",
+                "operationTitle": "Get Categories"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves categories fro Acronis.",
+          "name": "Get Categories",
+          "tag": "#Acronis",
+          "recordTags": [
+            "Acronis",
+            "acronis"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/810a499b-b7a0-4095-aa74-3aa09664bb6b",
+          "routes": [
+            {
+              "uuid": "f9e0b990-d064-4427-af6a-5106b913d7c0",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Categories",
+              "sourceStep": "/api/3/workflow_steps/810a499b-b7a0-4095-aa74-3aa09664bb6b",
+              "targetStep": "/api/3/workflow_steps/3c09dda4-5082-4822-82f8-c71434df47f3"
+            }
+          ]
+        }
+      ],
+      "name": "Sample - Acronis - 1.0.0",
+      "description": "Acronis Cyber Protect Connect is a remote access solution to remotely manage workloads \u2014 quickly and easily. This connector facilitates automated operations to fetch alerts, target, service etc.",
+      "visible": true,
+      "recordTags": [
+        "Acronis",
+        "acronis"
+      ]
+    }
+  ]
+}
