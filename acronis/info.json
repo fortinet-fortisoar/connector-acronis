@@ -1,10 +1,10 @@
 {
   "name": "acronis",
-  "label": "Acronis",
+  "label": "Acronis Cyber Protect Cloud",
   "version": "1.0.0",
   "description": "Acronis Cyber Protect Connect is a remote access solution to remotely manage workloads — quickly and easily. This connector facilitates automated operations to fetch alerts, target, service etc.",
   "publisher": "Fortinet",
-  "cs_approved": false,
+  "cs_approved": true,
   "cs_compatible": true,
   "category": "Attack surface management",
   "icon_small_name": "small.png",
@@ -60,7 +60,7 @@
     {
       "operation": "create_alert",
       "title": "Create an Alert",
-      "description": "Creates and activates an alert based on the tyep, category and other parameters you have specified.",
+      "description": "Creates and activates an alert based on the type, category and other parameters you have specified.",
       "category": "investigation",
       "annotation": "create_alert",
       "output_schema": {
@@ -83,8 +83,9 @@
           "required": false,
           "editable": true,
           "visible": true,
-          "type": "text",
+          "type": "select",
           "name": "type",
+          "apiOperation": "get_alert_types",
           "tooltip": "Select the type to create an alert in Acronis.",
           "description": "Select the type to create an alert in Acronis."
         },

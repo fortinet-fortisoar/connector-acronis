@@ -25,21 +25,21 @@ class Acronis:
             self.base_url = self.base_url.strip('/')
         else:
             self.base_url = 'https://{0}'.format(self.base_url.strip('/'))
-        self.api_token = config.get("api_token")
+        self.access_token = config.get('token')
         self.verify_ssl = config.get("verify_ssl")
         self.headers = {
             'accept': 'application/json',
             'Content-Type': 'application/json',
         }
 
-    def make_request(self, connector_name, connector_version, endpoint, config, is_token_exist=True, method='GET',
+    def make_request(self, connector_name, connector_version, endpoint, config, method='GET', flag=False,
                      params=None, data=None):
         try:
-            if not is_token_exist:
+            if self.access_token:
                 self.validate_token_for_cyops_config(config, connector_name, connector_version)
-
-            self.headers['Authorization'] = 'Bearer {0}'.format(self.access_token)
-            url = '{0}{1}{2}'.format(self.base_url, '/recon/api/v1', endpoint)
+            if flag == True:
+                self.headers['Authorization'] = 'Bearer {0}'.format(self.access_token)
+            url = '{0}{1}'.format(self.base_url, endpoint)
             logger.info('Request URL {0}'.format(url))
 
             response = requests.request(method, url, data=data, headers=self.headers, verify=self.verify_ssl,
@@ -78,16 +78,15 @@ class Acronis:
             if not config.get('token'):
                 logger.error('Error occured while connecting server: Unauthorized')
                 raise ConnectorError('Error occured while connecting server: Unauthorized')
-            expires = config.get('expiresOn')
+            expires = config.get('expiresOn', 0)
             if ts_now > expires:
                 new_token, exp_time = self.generate_token(connector_name, connector_version, config)
                 config['token'] = new_token
-                config['expiresOn'] = int(time.time())
-                self.access_token = config.get('token')
+                config['expiresOn'] = exp_time
                 update_connnector_config(connector_name, connector_version, config, config.get('config_id'))
             else:
                 logger.info("Acronis: Valid Acronis Token")
-            self.access_token = config.get('token')
+                self.access_token = config.get('token')
         except Exception as err:
             logger.error("Failure {0}".format(str(err)))
             raise ConnectorError(str(err))
@@ -98,12 +97,13 @@ class Acronis:
         basic_auth = {'Authorization': 'Basic ' + encoded_client_creds.decode('ascii')}
         self.headers = {'Content-Type': 'application/x-www-form-urlencoded', **basic_auth}
 
-        response = self.make_request(connector_name, connector_version, '/api/2/idp/token', config, is_token_exist=True,
-                                     method='POST', data=params)
+        response = requests.request('POST', f'{self.base_url}/api/2/idp/token',
+                                    headers={'Content-Type': 'application/x-www-form-urlencoded', **basic_auth},
+                                    data={'grant_type': 'client_credentials'})
+        response = response.json()
         access_token = response['access_token']
-        expires_in = response['expiresOn']
+        expires_in = response['expires_on']
         if response:
-            self.headers['Content-Type'] = 'application/json'
             return access_token, expires_in
 
     def build_payload(self, params):
@@ -119,15 +119,17 @@ class Acronis:
 def create_alert(config, params, connector_name, connector_version, **kwargs):
     obj = Acronis(config)
     params = obj.build_payload(params)
+    if params.get('type'):
+        alert_types_ids = get_alert_types(config, params, connector_name, connector_version, response_type='list')
+        params['type'] = alert_types_ids    
     if params.get('title'):
         params.update({"details": {"title": params.get('title')}})
     if params.get('category'):
         params.update({"category": {"title": params.get('category')}})
     if params.get('description'):
         params.update({"description": {"title": params.get('description')}})
-    response = obj.make_request(connector_name, connector_version, endpoint='/api/alert_manager/v1/alerts',
-                                config=config,
-                                is_token_exist=False, method='POST', data=json.dumps(params))
+    response = obj.make_request(connector_name, connector_version, endpoint='/api/alert_manager/v1/alerts', flag=True,
+                                config=config, method='POST', data=json.dumps(params))
     return response
 
 
@@ -138,18 +140,24 @@ def get_alerts(config, params, connector_name, connector_version, **kwargs):
     if params.get('alerts_id'):
         endpoint = '/api/alert_manager/v1/alerts/{alerts_id}'.format(alerts_id=params.get('alerts_id'))
         params.pop('alerts_id')
-    response = obj.make_request(connector_name, connector_version, endpoint=endpoint, config=config,
-                                is_token_exist=False, params=params)
+    response = obj.make_request(connector_name, connector_version, endpoint=endpoint, config=config, flag=True,
+                                 params=params)
     return response
 
 
-def get_alert_types(config, params, connector_name, connector_version, **kwargs):
+def get_alert_types(config, params, connector_name, connector_version, response_type='list', **kwargs):
     obj = Acronis(config)
     params = obj.build_payload(params)
-    response = obj.make_request(connector_name, connector_version, endpoint='/api/alert_manager/v1/types',
-                                config=config,
-                                is_token_exist=False, params=params)
-    return response
+    response = obj.make_request(connector_name, connector_version, endpoint='/api/alert_manager/v1/types', flag=True,
+                                config=config, params=params)
+    items = response.get('items')
+    types_list = []
+    for each_item in items:
+        types_list.append(each_item.get('id'))
+    if response_type == 'list':
+        return types_list
+    else:
+        return response
 
 
 def delete_alert(config, params, connector_name, connector_version, **kwargs):
@@ -157,16 +165,16 @@ def delete_alert(config, params, connector_name, connector_version, **kwargs):
     params = obj.build_payload(params)
     response = obj.make_request(connector_name, connector_version,
                                 endpoint='/api/alert_manager/v1/alerts/{alert_id}'.format(
-                                    alert_id=params.get('alert_id')),
-                                config=config, is_token_exist=False, method='DELETE', params=params)
+                                    alert_id=params.get('alert_id')), flag=True,
+                                config=config, method='DELETE', params=params)
     return response
 
 
 def get_categories(config, params, connector_name, connector_version, **kwargs):
     obj = Acronis(config)
     params = obj.build_payload(params)
-    response = obj.make_request(connector_name, connector_version, endpoint='/api/alert_manager/v1/categories',
-                                config=config, is_token_exist=False, params=params)
+    response = obj.make_request(connector_name, connector_version, endpoint='/api/alert_manager/v1/categories', flag=True,
+                                config=config, params=params)
     return response
 
 
@@ -175,7 +183,7 @@ def _check_health(config, connector_name, connector_version):
         obj = Acronis(config)
         token, expiration = obj.generate_token(connector_name, connector_version, config)
         config['token'] = token
-        config['expiresOn'] = int(time.time()) + expiration
+        config['expiresOn'] = expiration
         update_connnector_config(connector_name, connector_version, config, config.get('config_id'))
         return True
     except Exception as err:
