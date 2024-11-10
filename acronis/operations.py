@@ -119,15 +119,19 @@ class Acronis:
 def create_alert(config, params, connector_name, connector_version, **kwargs):
     obj = Acronis(config)
     params = obj.build_payload(params)
-    if params.get('type'):
-        alert_types_ids = get_alert_types(config, params, connector_name, connector_version, response_type='list')
-        params['type'] = alert_types_ids    
+    logger.error("Before Params: {}".format(params))
+    details_dict = {"details": {}}   
     if params.get('title'):
-        params.update({"details": {"title": params.get('title')}})
+        details_dict.get("details").update({"title": params.get('title')})
+        params.pop('title')
     if params.get('category'):
-        params.update({"category": {"title": params.get('category')}})
+        details_dict.get("details").update({"category": params.get('category')})
+        params.pop('category')
     if params.get('description'):
-        params.update({"description": {"title": params.get('description')}})
+        details_dict.get("details").update({"description": params.get('description')})
+        params.pop('description')
+    params.update(details_dict)
+    logger.error("After Params: {}".format(params))
     response = obj.make_request(connector_name, connector_version, endpoint='/api/alert_manager/v1/alerts', flag=True,
                                 config=config, method='POST', data=json.dumps(params))
     return response
