@@ -83,9 +83,8 @@
           "required": false,
           "editable": true,
           "visible": true,
-          "type": "select",
+          "type": "text",
           "name": "type",
-          "apiOperation": "get_alert_types",
           "tooltip": "Select the type to create an alert in Acronis.",
           "description": "Select the type to create an alert in Acronis."
         },
