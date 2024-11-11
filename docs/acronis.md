@@ -8,8 +8,6 @@ Connector Version: 1.0.0
 
 FortiSOAR&trade; Version Tested on: 7.4.1-3167
 
-Acronis Cyber Protect Cloud Version Tested on: 
-
 Authored By: Fortinet
 
 Certified: Yes
