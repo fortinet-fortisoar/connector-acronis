@@ -40,14 +40,14 @@ The following automated operations can be included in playbooks and you can also
 <table border=1><thead><tr><th>Function</th><th>Description</th><th>Annotation and Category</th></tr></thead><tbody><tr><td>Create an Alert</td><td>Creates and activates an alert based on the type, category and other parameters you have specified.</td><td>create_alert <br/>Investigation</td></tr>
 <tr><td>Get Alerts</td><td>Retrieves the alert/alerts based on the alerts ID parameter you have specified.</td><td>get_alerts <br/>Investigation</td></tr>
 <tr><td>Get Alert Types</td><td>Retrieves all registered alert types based on the OS type, category, order parameter you have specified.</td><td>get_alert_types <br/>Investigation</td></tr>
-<tr><td>Delete an Alert</td><td>Deletes an alert based on the ALert ID parameter you have specified.</td><td>delete_alert <br/>Investigation</td></tr>
-<tr><td>Get Categories</td><td>Retrieves categories fro Acronis.</td><td>get_categories <br/>Investigation</td></tr>
+<tr><td>Delete an Alert</td><td>Deletes an alert based on the Alert ID parameter you have specified.</td><td>delete_alert <br/>Investigation</td></tr>
+<tr><td>Get Categories</td><td>Retrieves the available categories from Acronis.</td><td>get_categories <br/>Investigation</td></tr>
 </tbody></table>
 
 ### operation: Create an Alert
 #### Input parameters
 <table border=1><thead><tr><th>Parameter</th><th>Description</th></tr></thead><tbody><tr><td>Title</td><td>(Optional) Specify the title to create an alert in Acronis.
-</td></tr><tr><td>Type</td><td>(Optional) Select the type to create an alert in Acronis.
+</td></tr><tr><td>Type</td><td>(Optional) Specify the type to create an alert in Acronis.
 </td></tr><tr><td>Category</td><td>(Optional) Select the category to create an alert in Acronis. you can choose from Backup, System, Licensing, Disaster recovery, Antimalware protection, URL filtering, Management, Monitoring, Device control, Email security, EDR, Public clouds connection, Performance logging and Device discovery
 </td></tr><tr><td>Tenant</td><td>(Optional) Specify the tenant details to create an alert in Acronis.
 </td></tr><tr><td>Description</td><td>(Optional) Specify the description to create an alert in Acronis.
