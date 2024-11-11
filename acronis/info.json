@@ -85,8 +85,8 @@
           "visible": true,
           "type": "text",
           "name": "type",
-          "tooltip": "Select the type to create an alert in Acronis.",
-          "description": "Select the type to create an alert in Acronis."
+          "tooltip": "Specify the type to create an alert in Acronis.",
+          "description": "Specify the type to create an alert in Acronis."
         },
         {
           "title": "Category",
@@ -274,7 +274,7 @@
     {
       "operation": "delete_alert",
       "title": "Delete an Alert",
-      "description": "Deletes an alert based on the ALert ID parameter you have specified.",
+      "description": "Deletes an alert based on the Alert ID parameter you have specified.",
       "category": "investigation",
       "annotation": "delete_alert",
       "output_schema": {
@@ -296,7 +296,7 @@
     {
       "operation": "get_categories",
       "title": "Get Categories",
-      "description": "Retrieves categories fro Acronis.",
+      "description": "Retrieves the available categories from Acronis.",
       "category": "investigation",
       "annotation": "get_categories",
       "output_schema": {
