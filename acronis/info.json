@@ -2,15 +2,15 @@
   "name": "acronis",
   "label": "Acronis Cyber Protect Cloud",
   "version": "1.0.0",
-  "description": "Acronis Cyber Protect Connect is a remote access solution to remotely manage workloads — quickly and easily. This connector facilitates automated operations to fetch alerts, target, service etc.",
+  "description": "Acronis Cyber Protect Connect is a remote access solution to remotely manage workloads - quickly and easily. This connector facilitates automated operations to fetch alerts, target, service etc.",
   "publisher": "Fortinet",
-  "cs_approved": true,
+  "cs_approved": false,
   "cs_compatible": true,
   "category": "Attack surface management",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
   "ingestion_supported": false,
-  "help_online": "",
+  "help_online": "https://github.com/fortinet-fortisoar/connector-acronis/blob/release/1.0.0/docs/acronis.md",
   "configuration": {
     "fields": [
       {
